@@ -49,7 +49,8 @@ const map8 = new Map("#map8");
 
 var race = "8";
 var data;
-function loadData(data){
+
+function loadData(data) {
     map1.render("CD1", "mn", "GOP", "all", "1", data);
     map2.render("CD2", "mn", "GOP", "all", "2", data);
     map3.render("CD3", "mn", "GOP", "all", "3", data);
@@ -57,11 +58,11 @@ function loadData(data){
 }
 
 $.ajax({
-  url: './data/' + race + '.json',
-  async: false,
-  dataType: 'json',
-  success: function (response) {
-    data = response.results; 
-    loadData(data);
-  }
+    url: './data/' + race + '.json',
+    async: false,
+    dataType: 'json',
+    success: function(response) {
+        data = response.results;
+        loadData(data);
+    }
 });

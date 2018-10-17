@@ -38,96 +38,86 @@ $selector-wrapper: '.strib-styles.ssa.ssb.ssc';
   border: 1px solid black;
   font-size: 13px;
   font-family: Arial;
-  }
-
-  .legendary {
-    padding:4px;
-    font-family: "Benton Sans", Helvetica, Arial, sans-serif;
-    color: #fff;
-    font-weight:bold;
-    border-radius: 5px;
-    padding: 0 7px;
-    margin-bottom: 3px;
-  }
-
-  .r1 {
-    background-color: #C68985;
-    fill: #C68985 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#C68985;
-    }
-    
-    .r2 {
-    background-color: #A5484D;
-    fill: #A5484D !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#A5484D;
-    }
-    
-    .r3 {
-    background-color: #A52129;
-    fill: #A52129 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#A52129;
-    }
-    
-    .r4 {
-    background-color: #8C1B17;
-    fill: #8C1B17 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#8C1B17;
-    }
-
-    .d1 {
-      background-color: #ABCEE8;
-      fill: #ABCEE8 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#ABCEE8;
-      }
-      
-      .d2 {
-      background-color: #5ca5c3;
-      fill: #5ca5c3 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#5ca5c3;
-      }
-      
-      .d3 {
-      background-color: #4f97c4;
-      fill: #4f97c4 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#4f97c4;
-      }
-      
-      .d4 {
-      background-color: #3f88c5;
-      fill: #3f88c5 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      }
-      .green4 {
-        fill: #299E3D;
-        background-color: #299E3D;
-      }
-      .mapicon {
-        text-align:center;
-      }
-      
-      .mapicon img {
-        width:80px;
-      }
+}
+.legendary {
+  padding:4px;
+  font-family: "Benton Sans", Helvetica, Arial, sans-serif;
+  color: #fff;
+  font-weight:bold;
+  border-radius: 5px;
+  padding: 0 7px;
+  margin-bottom: 3px;
+}
+.r1 {
+  background-color: #C68985;
+  fill: #C68985 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#C68985;
+}
+.r2 {
+  background-color: #A5484D;
+  fill: #A5484D !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#A5484D;
+}
+.r3 {
+  background-color: #A52129;
+  fill: #A52129 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#A52129;
+}
+.r4 {
+  background-color: #8C1B17;
+  fill: #8C1B17 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#8C1B17;
+}
+.d1 {
+  background-color: #ABCEE8;
+  fill: #ABCEE8 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#ABCEE8;
+}
+.d2 {
+  background-color: #5ca5c3;
+  fill: #5ca5c3 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#5ca5c3;
+}
+.d3 {
+  background-color: #4f97c4;
+  fill: #4f97c4 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#4f97c4;
+}
+.d4 {
+  background-color: #3f88c5;
+  fill: #3f88c5 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+}
+.green4 {
+  fill: #299E3D;
+  background-color: #299E3D;
+}
+.mapicon {
+  text-align:center;
+}
+.mapicon img {
+  width:80px;
+}
