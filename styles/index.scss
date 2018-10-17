@@ -121,3 +121,26 @@ $selector-wrapper: '.strib-styles.ssa.ssb.ssc';
 .mapicon img {
   width:80px;
 }
+#map1 {
+  max-height:500px;
+  overflow:hidden;
+}
+#map2 {
+  max-height:600px;
+  overflow:hidden;
+}
+#map3, #map8 {
+  max-height:650px;
+  overflow:hidden;
+}
+#map8 {
+  max-height:650px;
+  overflow:hidden;
+}
+
+@media (max-width:520px) {
+  .map, #map1, #map2, #map3, #map8 {
+    max-height:350px !important;
+    height:350px !important;
+  }
+}

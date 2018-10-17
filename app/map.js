@@ -146,47 +146,47 @@ class Map {
         };
 
         this.g.selectAll(self.target + ' .precincts path')
-            // .call(d3.helper.tooltip(function(d, i) {
-            //     var candidates = [];
-            //     var votes = 0;
-            //     for (var i = 0; i < data.length; i++) {
-            //         if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
-            //             if (party == 'DFL') {
-            //                 candidates.push([data[i].d1_name, data[i].d1, self.colorScale('d1')]);
-            //                 candidates.push([data[i].d2_name, data[i].d2, self.colorScale('d2')]);
-            //                 if (data[0].d3_name != null && data[0].d3_name != "null")  {candidates.push([data[i].d3_name, data[i].d3, self.colorScale('d3')]); }
-            //                 if (data[0].d4_name != null && data[0].d4_name != "null")  {candidates.push([data[i].d4_name, data[i].d4, self.colorScale('d4')]); }
-            //                 if (data[0].d5_name != null && data[0].d5_name != "null")  {candidates.push([data[i].d5_name, data[i].d5, self.colorScale('d5')]); }
-            //                 if (data[0].d6_name != null && data[0].d6_name != "null") { candidates.push([data[i].d6_name, data[i].d6, self.colorScale('d6')]); }
-            //                 votes = data[i].dVotes;
-            //             } else if (party == 'GOP') {
-            //                 candidates.push([data[i].r1_name, data[i].r1, self.colorScale('r1')]);
-            //                 candidates.push([data[i].r2_name, data[i].r2, self.colorScale('r2')]);
-            //                 if (data[0].r3_name != null && data[0].r3_name != "null") { candidates.push([data[i].r3_name, data[i].r3, self.colorScale('r3')]); }
-            //                 votes = data[i].rVotes;
-            //             }
+            .call(tooltip(function(d, i) {
+                var candidates = [];
+                var votes = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
+                        if (party == 'DFL') {
+                            candidates.push([data[i].d1_name, data[i].d1, self.colorScale('d1')]);
+                            candidates.push([data[i].d2_name, data[i].d2, self.colorScale('d2')]);
+                            if (data[0].d3_name != null && data[0].d3_name != "null")  {candidates.push([data[i].d3_name, data[i].d3, self.colorScale('d3')]); }
+                            if (data[0].d4_name != null && data[0].d4_name != "null")  {candidates.push([data[i].d4_name, data[i].d4, self.colorScale('d4')]); }
+                            if (data[0].d5_name != null && data[0].d5_name != "null")  {candidates.push([data[i].d5_name, data[i].d5, self.colorScale('d5')]); }
+                            if (data[0].d6_name != null && data[0].d6_name != "null") { candidates.push([data[i].d6_name, data[i].d6, self.colorScale('d6')]); }
+                            votes = data[i].dVotes;
+                        } else if (party == 'GOP') {
+                            candidates.push([data[i].r1_name, data[i].r1, self.colorScale('r1')]);
+                            candidates.push([data[i].r2_name, data[i].r2, self.colorScale('r2')]);
+                            if (data[0].r3_name != null && data[0].r3_name != "null") { candidates.push([data[i].r3_name, data[i].r3, self.colorScale('r3')]); }
+                            votes = data[i].rVotes;
+                        }
 
-            //             function sortCandidates(a, b) {
-            //                 if (a[1] === b[1]) {
-            //                     return 0;
-            //                 } else {
-            //                     return (a[1] > b[1]) ? -1 : 1;
-            //                 }
-            //             }
+                        function sortCandidates(a, b) {
+                            if (a[1] === b[1]) {
+                                return 0;
+                            } else {
+                                return (a[1] > b[1]) ? -1 : 1;
+                            }
+                        }
 
-            //             candidates.sort(sortCandidates);
+                        candidates.sort(sortCandidates);
 
-            //             var tipString = "";
+                        var tipString = "";
 
-            //             for (var j=0; j < candidates.length; j++){
-            //                 tipString = tipString + "<div class='tipRow'><div class='canName'>" + candidates[j][0] + "</div><div class='legendary votepct' style='background-color:" + candidates[j][2] + "'>" + d3.format(".1f")(candidates[j][1]) + "%</div></div>";
-            //             }
-            //             if (candidates[0][0] == 0) { return d.properties.PCTNAME + "<div>No results</div>"; } 
-            //             else { return d.properties.PCTNAME + " " + tipString + "<div class='votes'>Votes: " + d3.format(",")(votes) + "</div>"; }
-            //         }
-            //     }
-            //     return d.properties.PCTNAME + "<div>No results</div>";
-            // }))
+                        for (var j=0; j < candidates.length; j++){
+                            tipString = tipString + "<div class='tipRow'><div class='canName'>" + candidates[j][0] + "</div><div class='legendary votepct' style='background-color:" + candidates[j][2] + "'>" + d3.format(".1f")(candidates[j][1]) + "%</div></div>";
+                        }
+                        if (candidates[0][0] == 0) { return d.properties.PCTNAME + "<div>No results</div>"; } 
+                        else { return d.properties.PCTNAME + " " + tipString + "<div class='votes'>Votes: " + d3.format(",")(votes) + "</div>"; }
+                    }
+                }
+                return d.properties.PCTNAME + "<div>No results</div>";
+            }))
             .transition()
             .duration(600)
             .style('fill', function(d) {
@@ -250,7 +250,18 @@ class Map {
         var projection = d3.geoAlbers().scale(5037).translate([50, 970]);
 
         var width = 520;
-        var height = 600;
+        var height = 0;
+
+        if (race == "1") {
+            height = 350;
+        } else if (race == "2") {
+            height = 400;
+        }  else if (race == "3") {
+            height = 400;
+        }  else if (race == "8") {
+            height = 400;
+        } 
+
         var centered;
 
         var path = d3.geoPath(projection);
@@ -327,34 +338,34 @@ class Map {
         //     .attr("cy", function (d){ return d[1]; });
 
         //draw shift lines
-        self.g.selectAll(".centroid").data(centroids)
-            .enter().append("line")
-            .attr("stroke",
-                function(d, i) {
-                    if (features[i].properties.COUNTYCODE == "1" || features[i].properties.COUNTYCODE == "3") {
-                        return "#7f98aa";
-                    } else {
-                        return "#8c0808";
-                    }
-                })
-            .attr("stroke-width", "1px")
-            .attr("class", "shifter")
-            .attr("x1", function(d) {
-                return d[0];
-            })
-            .attr("y1", function(d) {
-                return d[1];
-            })
-            .attr("x2", function(d, i) {
-                if (features[i].properties.COUNTYCODE == "1" || features[i].properties.COUNTYCODE == "3") {
-                    return d[0] - 10;
-                } else {
-                    return d[0] + 10;
-                }
-            })
-            .attr("y2", function(d) {
-                return d[1];
-            })
+        // self.g.selectAll(".centroid").data(centroids)
+        //     .enter().append("line")
+        //     .attr("stroke",
+        //         function(d, i) {
+        //             if (features[i].properties.COUNTYCODE == "1" || features[i].properties.COUNTYCODE == "3") {
+        //                 return "#7f98aa";
+        //             } else {
+        //                 return "#8c0808";
+        //             }
+        //         })
+        //     .attr("stroke-width", "0.3px")
+        //     .attr("class", "shifter")
+        //     .attr("x1", function(d) {
+        //         return d[0];
+        //     })
+        //     .attr("y1", function(d) {
+        //         return d[1];
+        //     })
+        //     .attr("x2", function(d, i) {
+        //         if (features[i].properties.COUNTYCODE == "1" || features[i].properties.COUNTYCODE == "3") {
+        //             return d[0] - 10;
+        //         } else {
+        //             return d[0] + 10;
+        //         }
+        //     })
+        //     .attr("y2", function(d) {
+        //         return d[1];
+        //     });
 
         //Draw congressional district borders
         self.g.append('g')
