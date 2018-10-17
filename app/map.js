@@ -380,11 +380,11 @@ class Map {
                     if (race == "1") {
                         clicked(d, 1.5);
                     } else if (race == "2") {
-                        clicked(d, 4.5);
+                        clicked(d, 4.1);
                     } else if (race == "3") {
                         clicked(d, 9);
                     } else if (race == "8") {
-                        clicked(d, 1.3);
+                        clicked(d, 1.2);
                     }
                 }
             });
