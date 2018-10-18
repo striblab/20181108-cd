@@ -22,6 +22,18 @@ class Map {
         this.colorScale2 = d3.scaleOrdinal()
             .domain(['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'r1', 'r2', 'r3', 'r4'])
             .range(['#83bc6d', '#82bae0', '#9d6cb2', '#3b7062', '#999999', '#7f98aa', '#eb6868', '#d6d066', '#F2D2A4', '#ed61a7']);
+        this.red2red = d3.scaleLinear()
+            .domain([0,1])
+            .range(['#C68985', '#8C1B17']);
+        this.blue2blue = d3.scaleLinear()
+            .domain([0,1])
+            .range(['#ABCEE8', '#4f97c4']);
+        this.red2blue = d3.scaleLinear()
+            .domain([0,1])
+            .range(['#71669A', '#413374']);
+        this.blue2red = d3.scaleLinear()
+            .domain([0,1])
+            .range(['#fde0dd', '#dd3497']);
     }
 
     /********** PRIVATE METHODS **********/
