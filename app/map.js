@@ -1,9 +1,9 @@
 import 'intersection-observer';
 import * as d3 from 'd3';
 import * as topojson from "topojson";
-import pct from '../sources/mnpct-small.json';
+import pct from '../sources/mnpct-shifts.json';
 import mn from '../sources/mncd.json';
-import mncounties from '../sources/counties.json';
+import mncounties from '../sources/counties.json'; 
 
 
 class Map {
@@ -23,17 +23,17 @@ class Map {
             .domain(['d1', 'd2', 'd3', 'd4', 'd5', 'd6', 'r1', 'r2', 'r3', 'r4'])
             .range(['#83bc6d', '#82bae0', '#9d6cb2', '#3b7062', '#999999', '#7f98aa', '#eb6868', '#d6d066', '#F2D2A4', '#ed61a7']);
         this.red2red = d3.scaleLinear()
-            .domain([0,1])
-            .range(['#C68985', '#8C1B17']);
+            .domain([0,0.5])
+            .range(['#db655e', '#8C1B17']);
+            this.red2blue = d3.scaleLinear()
+            .domain([0,0.5])
+            .range(['#db655e', '#dd3497']);
         this.blue2blue = d3.scaleLinear()
-            .domain([0,1])
+            .domain([0,0.5])
             .range(['#ABCEE8', '#4f97c4']);
-        this.red2blue = d3.scaleLinear()
-            .domain([0,1])
-            .range(['#71669A', '#413374']);
         this.blue2red = d3.scaleLinear()
-            .domain([0,1])
-            .range(['#fde0dd', '#dd3497']);
+            .domain([0,0.5])
+            .range(['#ABCEE8', '#413374']);
     }
 
     /********** PRIVATE METHODS **********/
@@ -149,89 +149,62 @@ class Map {
                         $("#tip").hide();
                         $(".key").show();
                         $("#tip").html("");
-                    });
+                    }); 
 
             };
         };
 
         this.g.selectAll(self.target + ' .precincts path')
             .call(tooltip(function(d, i) {
-                var candidates = [];
-                var votes = 0;
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
-                        if (party == 'DFL') {
-                            candidates.push([data[i].d1_name, data[i].d1, self.colorScale('d1')]);
-                            candidates.push([data[i].d2_name, data[i].d2, self.colorScale('d2')]);
-                            if (data[0].d3_name != null && data[0].d3_name != "null")  {candidates.push([data[i].d3_name, data[i].d3, self.colorScale('d3')]); }
-                            if (data[0].d4_name != null && data[0].d4_name != "null")  {candidates.push([data[i].d4_name, data[i].d4, self.colorScale('d4')]); }
-                            if (data[0].d5_name != null && data[0].d5_name != "null")  {candidates.push([data[i].d5_name, data[i].d5, self.colorScale('d5')]); }
-                            if (data[0].d6_name != null && data[0].d6_name != "null") { candidates.push([data[i].d6_name, data[i].d6, self.colorScale('d6')]); }
-                            votes = data[i].dVotes;
-                        } else if (party == 'GOP') {
-                            candidates.push([data[i].r1_name, data[i].r1, self.colorScale('r1')]);
-                            candidates.push([data[i].r2_name, data[i].r2, self.colorScale('r2')]);
-                            if (data[0].r3_name != null && data[0].r3_name != "null") { candidates.push([data[i].r3_name, data[i].r3, self.colorScale('r3')]); }
-                            votes = data[i].rVotes;
-                        }
 
-                        function sortCandidates(a, b) {
-                            if (a[1] === b[1]) {
-                                return 0;
-                            } else {
-                                return (a[1] > b[1]) ? -1 : 1;
-                            }
-                        }
+                var shifter;
+                var can1;
+                var can2;
 
-                        candidates.sort(sortCandidates);
-
-                        var tipString = "";
-
-                        for (var j=0; j < candidates.length; j++){
-                            tipString = tipString + "<div class='tipRow'><div class='canName'>" + candidates[j][0] + "</div><div class='legendary votepct' style='background-color:" + candidates[j][2] + "'>" + d3.format(".1f")(candidates[j][1]) + "%</div></div>";
-                        }
-                        if (candidates[0][0] == 0) { return d.properties.PCTNAME + "<div>No results</div>"; } 
-                        else { return d.properties.PCTNAME + " " + tipString + "<div class='votes'>Votes: " + d3.format(",")(votes) + "</div>"; }
-                    }
+                if (d.properties.shifts_r_pct16 > d.properties.shifts_d_pct16) {
+                    can1 = "<div class='legendary r4'>GOP: " + d3.format(".1%")(d.properties.shifts_r_pct16) + "</div>";
+                    can2 = "<div class='legendary d4'>DFL: " + d3.format(".1%")(d.properties.shifts_d_pct16) + "</div>";
+                } else {
+                    can2 = "<div class='legendary r4'>GOP: " + d3.format(".1%")(d.properties.shifts_r_pct16) + "</div>";
+                    can1 = "<div class='legendary d4'>DFL: " + d3.format(".1%")(d.properties.shifts_d_pct16) + "</div>";
                 }
-                return d.properties.PCTNAME + "<div>No results</div>";
+
+                if (d.properties.shifts_shift == "D") {
+                    shifter = "⇦ " + d.properties.shifts_shift + "+" + d3.format(".1%")(d.properties.shifts_shift_pct);
+                } else {
+                    shifter = d.properties.shifts_shift + "+" + d3.format(".1%")(d.properties.shifts_shift_pct) + " ⇨";
+                }
+
+                return d.properties.PCTNAME + can1 + can2 + "<div>" + shifter + "</div>";
+
+                //return d.properties.PCTNAME + "<div>No results</div>";
             }))
             .transition()
             .duration(600)
             .style('fill', function(d) {
-                var winner = '';
-                var winner_sat = '';
-                var margin = '';
-                var candidates;
-                var count = 0;
-
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].match == (d.properties.COUNTYCODE + d.properties.CONGDIST + d.properties.MNLEGDIST + d.properties.PCTCODE)) {
-                        if (party == 'DFL') {
-                            winner_sat = self.colorScale2(data[i].dWin);
-                            winner = self.colorScale(data[i].dWin);
-                            margin = data[i].dMargin;
-                            candidates = [data[i].d1, data[i].d2, data[i].d3, data[i].d4, data[i].d5, data[i].d6];
-                        } else if (party == 'GOP') {
-                            winner_sat = self.colorScale2(data[i].rWin);
-                            winner = self.colorScale(data[i].rWin);
-                            margin = data[i].rMargin;
-                            candidates = [data[i].r1, data[i].r2, data[i].r3, data[i].r4];
-                        }
-                        for (var k = 0; k < candidates.length; k++) {
-                            if (candidates[k] == margin) {
-                                count++;
-                            }
-                        }
-                        var colorIntensity = d3.scaleLinear().domain([1, 100]).range([winner, winner_sat]);
-                        if (margin != 0 && count < 2) {
-                            return colorIntensity(margin);
-                        } else {
-                            return '#eeeeee';
-                        }
+                if (d.properties.shifts_win16 == "D") { 
+                    //return '#4f97c4'; 
+                    if (d.properties.shifts_shift == "D") {
+                        return self.blue2blue(d.properties.shifts_shift_pct);
                     }
+                    else if (d.properties.shifts_shift == "R") {
+                        return self.blue2red(d.properties.shifts_shift_pct);
+                    }
+                    
                 }
-                return '#eeeeee';
+                else if (d.properties.shifts_win16 == "R") { 
+                    //return '#8C1B17';
+                    if (d.properties.shifts_shift == "D") {
+                        return self.red2blue(d.properties.shifts_shift_pct);
+                    }
+                    else if (d.properties.shifts_shift == "R") {
+                        return self.red2red(d.properties.shifts_shift_pct);
+                    }
+                     
+                }
+                else { 
+                    return '#eeeeee'; 
+                }
             });
 
         if (race == "1") {
