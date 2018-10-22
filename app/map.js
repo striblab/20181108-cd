@@ -295,60 +295,6 @@ class Map {
         //     }
         // });
 
-        var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
-            if (filtered != "all") {
-                return d.properties.CONGDIST == race;
-            }
-        });
-
-        var centroids = features.map(function(feature) {
-            return path.centroid(feature);
-        });
-
-        //draw circles
-        // self.g.selectAll(".centroid").data(centroids)
-        //   .enter().append("circle")
-        //     .attr("class", "marker")
-        //     .attr("fill", "#000000")
-        //     .attr("stroke", "#000000")
-        //     .attr("stroke-width", "1px")
-        //     .attr("r", function (d){ 
-        //         if (geo == "metro") { }
-        //         else { return 1; }
-        //     })
-        //     .attr("cx", function (d){ return d[0]; })
-        //     .attr("cy", function (d){ return d[1]; });
-
-        //draw shift lines
-        // self.g.selectAll(".centroid").data(centroids)
-        //     .enter().append("line")
-        //     .attr("stroke",
-        //         function(d, i) {
-        //             if (features[i].properties.COUNTYCODE == "1" || features[i].properties.COUNTYCODE == "3") {
-        //                 return "#7f98aa";
-        //             } else {
-        //                 return "#8c0808";
-        //             }
-        //         })
-        //     .attr("stroke-width", "0.3px")
-        //     .attr("class", "shifter")
-        //     .attr("x1", function(d) {
-        //         return d[0];
-        //     })
-        //     .attr("y1", function(d) {
-        //         return d[1];
-        //     })
-        //     .attr("x2", function(d, i) {
-        //         if (features[i].properties.COUNTYCODE == "1" || features[i].properties.COUNTYCODE == "3") {
-        //             return d[0] - 10;
-        //         } else {
-        //             return d[0] + 10;
-        //         }
-        //     })
-        //     .attr("y2", function(d) {
-        //         return d[1];
-        //     });
-
         //Draw congressional district borders
         self.g.append('g')
             .attr('class', 'districts')
@@ -394,6 +340,76 @@ class Map {
             .attr('fill', 'none')
             .attr('stroke-width', '1px');
 
+            var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
+                if (filtered != "all") {
+                    return d.properties.CONGDIST == race;
+                }
+            });
+    
+            var centroids = features.map(function(feature) {
+                return path.centroid(feature);
+            });
+    
+            //draw circles
+            self.g.selectAll(".centroid").data(centroids)
+              .enter().append("circle")
+                .attr("class", "marker")
+                .attr("fill", function(d, i) {
+                    if (features[i].properties.shifts_shift == "D") {
+                        return "#7f98aa";
+                    } else {
+                        return "#8c0808";
+                    }
+                })
+                .attr("stroke", function(d, i) {
+                    if (features[i].properties.shifts_shift == "D") {
+                        return "#7f98aa";
+                    } else {
+                        return "#8c0808";
+                    }
+                })
+                .attr("stroke-width", "1px")
+                .attr("r", function (d){ 
+                    if (geo == "metro") { }
+                    else { return 0.5; }
+                })
+                .attr("cx", function (d, i){ 
+                    if (features[i].properties.shifts_shift == "D") {
+                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / 3);
+                    } else {
+                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / 3);
+                    }
+                 })
+                .attr("cy", function (d, i){ return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / 10); });
+    
+            //draw shift lines
+            self.g.selectAll(".centroid").data(centroids)
+                .enter().append("line")
+                .attr("stroke", function(d, i) {
+                        if (features[i].properties.shifts_shift == "D") {
+                            return "#7f98aa";
+                        } else {
+                            return "#8c0808";
+                        }
+                    })
+                .attr("stroke-width", "0.5px")
+                .attr("class", "shifter")
+                .attr("x1", function(d) {
+                    return d[0];
+                })
+                .attr("y1", function(d) {
+                    return d[1];
+                })
+                .attr("x2", function(d, i) {
+                    if (features[i].properties.shifts_shift == "D") {
+                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / 3);
+                    } else {
+                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / 3);
+                    }
+                })
+                .attr("y2", function(d, i) {
+                    return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / 10);
+                });
 
         function clicked(d, k) {
             var x, y, stroke;
