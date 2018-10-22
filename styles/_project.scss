@@ -60,6 +60,149 @@ h2 {
   margin-bottom:40px;
   padding-bottom:40px;
 }
+.key {
+    text-align:left;
+}
+.resultRow div {
+    display:inline-block;
+    width:48%;
+}
+.topRow {
+    font-weight:bold;
+}
+.key_legend {
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom:2px;
+}
+.percent {
+    text-align:right;
+}
+/* Political color ramps */
+.gop {
+    fill: #A52129;
+    background-color: #A52129;
+    font-weight: bold;
+    color: #ffffff;
+}
+.gopLight {
+    fill: #F2614C;
+    background-color: #F2614C;
+}
+.neutral {
+    fill: #F7F7F7;
+    background-color: #F7F7F7;
+}
+.dflLight {
+    fill: #67B4C2;
+    background-color: #67B4C2;
+}
+.dfl {
+    fill: #4f97c4;
+    background-color: #4f97c4;
+    font-weight: bold;
+    color: #ffffff;
+}
+.republican {
+    fill: #A52129 !important;
+    pointer-events: all;
+    font-weight: bold;
+    color: #fff;
+}
+.rlikely {
+    background-color: #A5484D;
+    fill: #A5484D !important;
+    pointer-events: all;
+    font-weight: bold;
+}
+.rlean {
+    background-color: #f7816E;
+    fill: #f7816E !important;
+    pointer-events: all;
+    font-weight: bold;
+}
+.r1 {
+    background-color: #C68985;
+    fill: #C68985 !important;
+    color: white !important;
+    pointer-events: all;
+    font-weight: bold;
+    stroke:#C68985;
+}
+.r2 {
+    background-color: #A5484D;
+    fill: #A5484D !important;
+    color: white !important;
+    pointer-events: all;
+    font-weight: bold;
+    stroke:#A5484D;
+}
+.r3 {
+    background-color: #A52129;
+    fill: #A52129 !important;
+    color: white !important;
+    pointer-events: all;
+    font-weight: bold;
+    stroke:#A52129;
+}
+.r4 {
+    background-color: #C0272D;
+    fill: #C0272D !important;
+    color: white !important;
+    pointer-events: all;
+    font-weight: bold;
+    stroke:#C0272D;
+}
+.r0 {
+    background-color: #8C1B17;
+    fill: #8C1B17 !important;
+    color: white !important;
+    pointer-events: all;
+    font-weight: bold;
+    stroke:#8C1B17;
+}
+.d1 {
+  background-color: #ABCEE8;
+  fill: #ABCEE8 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#ABCEE8;
+}
+.d2 {
+  background-color: #5ca5c3;
+  fill: #5ca5c3 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#5ca5c3;
+}
+.d3 {
+  background-color: #4f97c4;
+  fill: #4f97c4 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#4f97c4;
+}
+.d4 {
+  background-color: #0258A0;
+  fill: #0258A0 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#0258A0 !important;
+}
+.d0 {
+  background-color: #3F88C5;
+  fill: #3F88C5 !important;
+  color: white !important;
+  pointer-events: all;
+  font-weight: bold;
+  stroke:#3f88c5;
+}
 
 // base dataviz styles
 .slide {
@@ -186,13 +329,6 @@ h2 {
   .reset:hover {
       cursor:pointer;
  }
-  .resultRow div {
-      display:inline-block;
-      width:48%;
- }
-  .topRow {
-      font-weight:bold;
- }
   section.body {
       padding-top: 30px;
       margin-bottom: 45px;
@@ -204,9 +340,6 @@ h2 {
       max-width: 525px;
       margin-left:auto;
       margin-right:auto;
- }
-  .key {
-      text-align:left;
  }
   #tip {
       min-height:200px;
@@ -227,9 +360,6 @@ h2 {
  }
   .votepct {
       float:right;
- }
-  .percent {
-      text-align:right;
  }
   .precincts {
       fill: #DCDCDC !important;
@@ -333,13 +463,6 @@ h2 {
       padding: 0 7px;
       margin-bottom: 3px;
  }
-  .key_legend {
-      width:10px;
-      height:10px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-bottom:2px;
- }
  /* Red color ramp */
   .red1 {
       fill: #F2AC93;
@@ -386,129 +509,6 @@ h2 {
       fill: #0D4673;
       background-color: #0D4673;
  }
- /* Political color ramps */
-  .gop {
-      fill: #A52129;
-      background-color: #A52129;
-      font-weight: bold;
-      color: #ffffff;
- }
-  .gopLight {
-      fill: #F2614C;
-      background-color: #F2614C;
- }
-  .neutral {
-      fill: #F7F7F7;
-      background-color: #F7F7F7;
- }
-  .dflLight {
-      fill: #67B4C2;
-      background-color: #67B4C2;
- }
-  .dfl {
-      fill: #4f97c4;
-      background-color: #4f97c4;
-      font-weight: bold;
-      color: #ffffff;
- }
-  .republican {
-      fill: #A52129 !important;
-      pointer-events: all;
-      font-weight: bold;
-      color: #fff;
- }
-  .rlikely {
-      background-color: #A5484D;
-      fill: #A5484D !important;
-      pointer-events: all;
-      font-weight: bold;
- }
-  .rlean {
-      background-color: #f7816E;
-      fill: #f7816E !important;
-      pointer-events: all;
-      font-weight: bold;
- }
-  .r1 {
-      background-color: #C68985;
-      fill: #C68985 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#C68985;
- }
-  .r2 {
-      background-color: #A5484D;
-      fill: #A5484D !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#A5484D;
- }
-  .r3 {
-      background-color: #A52129;
-      fill: #A52129 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#A52129;
- }
-  .r4 {
-      background-color: #C0272D;
-      fill: #C0272D !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#C0272D;
- }
-  .r0 {
-      background-color: #8C1B17;
-      fill: #8C1B17 !important;
-      color: white !important;
-      pointer-events: all;
-      font-weight: bold;
-      stroke:#8C1B17;
- }
- .d1 {
-    background-color: #ABCEE8;
-    fill: #ABCEE8 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#ABCEE8;
-}
-.d2 {
-    background-color: #5ca5c3;
-    fill: #5ca5c3 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#5ca5c3;
-}
-.d3 {
-    background-color: #4f97c4;
-    fill: #4f97c4 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#4f97c4;
-}
-.d4 {
-    background-color: #0258A0;
-    fill: #0258A0 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#0258A0 !important;
-}
-.d0 {
-    background-color: #3F88C5;
-    fill: #3F88C5 !important;
-    color: white !important;
-    pointer-events: all;
-    font-weight: bold;
-    stroke:#3f88c5;
-}
 .purple1 {
     background-color: #71669A;
     fill: #71669A !important;
