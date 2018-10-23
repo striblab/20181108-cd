@@ -183,7 +183,7 @@ class Map {
             .duration(600)
             .style('fill', function(d) {
                 if (d.properties.shifts_win16 == "D") { 
-                    //return '#4f97c4'; 
+                    return '#A7E6E3'; 
                     if (d.properties.shifts_shift == "D") {
                         return self.blue2blue(d.properties.shifts_shift_pct);
                     }
@@ -193,7 +193,7 @@ class Map {
                     
                 }
                 else if (d.properties.shifts_win16 == "R") { 
-                    //return '#8C1B17';
+                    return '#F2AC93';
                     if (d.properties.shifts_shift == "D") {
                         return self.red2blue(d.properties.shifts_shift_pct);
                     }
