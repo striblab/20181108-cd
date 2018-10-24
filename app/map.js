@@ -368,10 +368,10 @@ class Map {
                         return "#8c0808";
                     }
                 })
-                .attr("stroke-width", "1px")
-                .attr("r", function (d){ 
-                    if (geo == "metro") { }
-                    else { return 0.5; }
+                .attr("stroke-width", "0")
+                .attr("r", function(d) {
+                    if ((race == "3") || (race == "2")) { return 0.4; }
+                    else { return 0.7; }
                 })
                 .attr("cx", function (d, i){ 
                     if (features[i].properties.shifts_shift == "D") {
@@ -392,7 +392,10 @@ class Map {
                             return "#8c0808";
                         }
                     })
-                .attr("stroke-width", "0.5px")
+                .attr("stroke-width", function(d) {
+                    if ((race == "3") || (race == "2")) { return "0.2px"; }
+                    else { return "0.5px"; }
+                })
                 .attr("class", "shifter")
                 .attr("x1", function(d) {
                     return d[0];
