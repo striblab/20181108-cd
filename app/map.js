@@ -370,17 +370,28 @@ class Map {
                 })
                 .attr("stroke-width", "0")
                 .attr("r", function(d) {
-                    if ((race == "3") || (race == "2")) { return 0.4; }
+                    if (race == "2") { return 0.4; }
+                    else if (race == "3")  { return 0.2; }
                     else { return 0.7; }
                 })
                 .attr("cx", function (d, i){ 
+                    var divider = 3;
+                    if (race == "2") { divider = 5; }
+                    else if (race == "3") { divider = 5; }
+
                     if (features[i].properties.shifts_shift == "D") {
-                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / 3);
+                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
                     } else {
-                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / 3);
+                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / divider);
                     }
                  })
-                .attr("cy", function (d, i){ return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / 10); });
+                .attr("cy", function (d, i){ 
+                    var divider = 10;
+                    if (race == "2") { divider = 15; }
+                    else if (race == "3") { divider = 15; }
+
+                    return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider); 
+                });
     
             //draw shift lines
             self.g.selectAll(".centroid").data(centroids)
@@ -393,7 +404,8 @@ class Map {
                         }
                     })
                 .attr("stroke-width", function(d) {
-                    if ((race == "3") || (race == "2")) { return "0.2px"; }
+                    if (race == "3"){ return "0.2px"; }
+                    else if (race == "2") { return "0.1px"; }
                     else { return "0.5px"; }
                 })
                 .attr("class", "shifter")
@@ -404,14 +416,22 @@ class Map {
                     return d[1];
                 })
                 .attr("x2", function(d, i) {
+                    var divider = 3;
+                    if (race == "2") { divider = 5; }
+                    else if (race == "3") { divider = 5; }
+
                     if (features[i].properties.shifts_shift == "D") {
-                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / 3);
+                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
                     } else {
-                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / 3);
+                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / divider);
                     }
                 })
                 .attr("y2", function(d, i) {
-                    return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / 10);
+                    var divider = 10;
+                    if (race == "2") { divider = 15; }
+                    else if (race == "3") { divider = 15; }
+
+                    return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider);
                 });
 
         function clicked(d, k) {
