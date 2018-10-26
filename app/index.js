@@ -46,7 +46,6 @@ const map2 = new Map("#map2");
 const map3 = new Map("#map3");
 const map8 = new Map("#map8");
 
-
 map1.render("CD1", "mn", "GOP", "all", "1", null);
 map2.render("CD2", "mn", "GOP", "all", "2", null);
 map3.render("CD3", "mn", "GOP", "all", "3", null);

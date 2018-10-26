@@ -182,29 +182,31 @@ class Map {
             .transition()
             .duration(600)
             .style('fill', function(d) {
-                if (d.properties.shifts_win16 == "D") { 
-                    return '#A7E6E3'; 
-                    if (d.properties.shifts_shift == "D") {
-                        return self.blue2blue(d.properties.shifts_shift_pct);
-                    }
-                    else if (d.properties.shifts_shift == "R") {
-                        return self.blue2red(d.properties.shifts_shift_pct);
-                    }
+                return "#ededed";
+
+                // if (d.properties.shifts_win16 == "D") { 
+                //     return '#A7E6E3'; 
+                //     if (d.properties.shifts_shift == "D") {
+                //         return self.blue2blue(d.properties.shifts_shift_pct);
+                //     }
+                //     else if (d.properties.shifts_shift == "R") {
+                //         return self.blue2red(d.properties.shifts_shift_pct);
+                //     }
                     
-                }
-                else if (d.properties.shifts_win16 == "R") { 
-                    return '#F2AC93';
-                    if (d.properties.shifts_shift == "D") {
-                        return self.red2blue(d.properties.shifts_shift_pct);
-                    }
-                    else if (d.properties.shifts_shift == "R") {
-                        return self.red2red(d.properties.shifts_shift_pct);
-                    }
+                // }
+                // else if (d.properties.shifts_win16 == "R") { 
+                //     return '#F2AC93';
+                //     if (d.properties.shifts_shift == "D") {
+                //         return self.red2blue(d.properties.shifts_shift_pct);
+                //     }
+                //     else if (d.properties.shifts_shift == "R") {
+                //         return self.red2red(d.properties.shifts_shift_pct);
+                //     }
                      
-                }
-                else { 
-                    return '#eeeeee'; 
-                }
+                // }
+                // else { 
+                //     return '#eeeeee'; 
+                // }
             });
 
         if (race == "1") {
@@ -229,7 +231,7 @@ class Map {
     render(filtered, magnify, party, geo, race, data) {
         var self = this;
 
-        var projection = d3.geoAlbers().scale(5037).translate([50, 970]);
+        var projection = d3.geoMercator().scale(5037).translate([50, 970]);
 
         var width = 520;
         var height = 0;
@@ -317,13 +319,13 @@ class Map {
                     $("#P" + d.properties.DISTRICT).addClass("hidden");
                 } else {
                     if (race == "1") {
-                        clicked(d, 1.5);
+                        clicked(d, 1);
                     } else if (race == "2") {
-                        clicked(d, 4.1);
+                        clicked(d, 2.8);
                     } else if (race == "3") {
-                        clicked(d, 9);
+                        clicked(d, 6.5);
                     } else if (race == "8") {
-                        clicked(d, 1.2);
+                        clicked(d, 0.84);
                     }
                 }
             });
@@ -356,8 +358,14 @@ class Map {
                 .attr("class", "marker")
                 .attr("fill", function(d, i) {
                     if (features[i].properties.shifts_shift == "D") {
+                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
                         return "#7f98aa";
                     } else {
+                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#C22A22"; }
                         return "#8c0808";
                     }
                 })
@@ -375,37 +383,44 @@ class Map {
                     else { return 0.7; }
                 })
                 .attr("cx", function (d, i){ 
-                    var divider = 3;
-                    if (race == "2") { divider = 5; }
-                    else if (race == "3") { divider = 5; }
+                    var divider = 7;
+                    if (race == "2") { divider = 2; }
+                    else if (race == "3") { divider = 1; }
 
                     if (features[i].properties.shifts_shift == "D") {
-                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
+                        return d[0] - divider;
+                        // return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
                     } else {
-                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / divider);
+                        return d[0] + divider;
                     }
                  })
                 .attr("cy", function (d, i){ 
-                    var divider = 10;
-                    if (race == "2") { divider = 15; }
-                    else if (race == "3") { divider = 15; }
+                    var divider = 3;
+                    if (race == "2") { divider = 2; }
+                    else if (race == "3") { divider = 1; }
 
-                    return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider); 
+                    return (d[1] - divider);
                 });
     
             //draw shift lines
             self.g.selectAll(".centroid").data(centroids)
                 .enter().append("line")
                 .attr("stroke", function(d, i) {
-                        if (features[i].properties.shifts_shift == "D") {
-                            return "#7f98aa";
-                        } else {
-                            return "#8c0808";
-                        }
+                    if (features[i].properties.shifts_shift == "D") {
+                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
+                        return "#7f98aa";
+                    } else {
+                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#C22A22"; }
+                        return "#8c0808";
+                    }
                     })
                 .attr("stroke-width", function(d) {
-                    if (race == "3"){ return "0.2px"; }
-                    else if (race == "2") { return "0.1px"; }
+                    if (race == "3"){ return "0.1px"; }
+                    else if (race == "2") { return "0.3px"; }
                     else { return "0.5px"; }
                 })
                 .attr("class", "shifter")
@@ -416,22 +431,25 @@ class Map {
                     return d[1];
                 })
                 .attr("x2", function(d, i) {
-                    var divider = 3;
-                    if (race == "2") { divider = 5; }
-                    else if (race == "3") { divider = 5; }
+                    var divider = 7;
+                    if (race == "2") { divider = 2; }
+                    else if (race == "3") { divider = 1; }
 
                     if (features[i].properties.shifts_shift == "D") {
-                        return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
+                        return d[0] - divider;
+                        // return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
                     } else {
-                        return d[0] + ((100 * features[i].properties.shifts_shift_pct) / divider);
+                        return d[0] + divider;
                     }
                 })
                 .attr("y2", function(d, i) {
-                    var divider = 10;
-                    if (race == "2") { divider = 15; }
-                    else if (race == "3") { divider = 15; }
+                    var divider = 3;
+                    if (race == "2") { divider = 2; }
+                    else if (race == "3") { divider = 1; }
 
-                    return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider);
+                    return (d[1] - divider);
+
+                    // return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider);
                 });
 
         function clicked(d, k) {
