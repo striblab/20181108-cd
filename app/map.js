@@ -353,54 +353,54 @@ class Map {
             });
     
             //draw circles
-            self.g.selectAll(".centroid").data(centroids)
-              .enter().append("circle")
-                .attr("class", "marker")
-                .attr("fill", function(d, i) {
-                    if (features[i].properties.shifts_shift == "D") {
-                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
-                        return "#7f98aa";
-                    } else {
-                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#C22A22"; }
-                        return "#8c0808";
-                    }
-                })
-                .attr("stroke", function(d, i) {
-                    if (features[i].properties.shifts_shift == "D") {
-                        return "#7f98aa";
-                    } else {
-                        return "#8c0808";
-                    }
-                })
-                .attr("stroke-width", "0")
-                .attr("r", function(d) {
-                    if (race == "2") { return 0.4; }
-                    else if (race == "3")  { return 0.2; }
-                    else { return 0.7; }
-                })
-                .attr("cx", function (d, i){ 
-                    var divider = 7;
-                    if (race == "2") { divider = 2; }
-                    else if (race == "3") { divider = 1; }
+            // self.g.selectAll(".centroid").data(centroids)
+            //   .enter().append("circle")
+            //     .attr("class", "marker")
+            //     .attr("fill", function(d, i) {
+            //         if (features[i].properties.shifts_shift == "D") {
+            //             // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
+            //             // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
+            //             // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
+            //             return "#7f98aa";
+            //         } else {
+            //             // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
+            //             // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
+            //             // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#C22A22"; }
+            //             return "#8c0808";
+            //         }
+            //     })
+            //     .attr("stroke", function(d, i) {
+            //         if (features[i].properties.shifts_shift == "D") {
+            //             return "#7f98aa";
+            //         } else {
+            //             return "#8c0808";
+            //         }
+            //     })
+            //     .attr("stroke-width", "0")
+            //     .attr("r", function(d) {
+            //         if (race == "2") { return 0.4; }
+            //         else if (race == "3")  { return 0.2; }
+            //         else { return 0.7; }
+            //     })
+            //     .attr("cx", function (d, i){ 
+            //         var divider = 7;
+            //         if (race == "2") { divider = 2; }
+            //         else if (race == "3") { divider = 1; }
 
-                    if (features[i].properties.shifts_shift == "D") {
-                        return d[0] - divider;
-                        // return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
-                    } else {
-                        return d[0] + divider;
-                    }
-                 })
-                .attr("cy", function (d, i){ 
-                    var divider = 3;
-                    if (race == "2") { divider = 2; }
-                    else if (race == "3") { divider = 1; }
+            //         if (features[i].properties.shifts_shift == "D") {
+            //             return d[0] - divider;
+            //             // return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
+            //         } else {
+            //             return d[0] + divider;
+            //         }
+            //      })
+            //     .attr("cy", function (d, i){ 
+            //         var divider = 3;
+            //         if (race == "2") { divider = 2; }
+            //         else if (race == "3") { divider = 1; }
 
-                    return (d[1] - divider);
-                });
+            //         return (d[1] - divider);
+            //     });
     
             //draw shift lines
             self.g.selectAll(".centroid").data(centroids)
@@ -450,7 +450,20 @@ class Map {
                     return (d[1] - divider);
 
                     // return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider);
-                });
+                })
+                .attr("marker-end", function(d, i) {
+                    if (features[i].properties.shifts_shift == "D") {
+                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
+                        return "url(#arrowD)";
+                    } else {
+                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
+                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#C22A22"; }
+                        return "url(#arrowR)";
+                    }
+                    });
 
         function clicked(d, k) {
             var x, y, stroke;
