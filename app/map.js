@@ -420,7 +420,7 @@ class Map {
                     })
                 .attr("stroke-width", function(d) {
                     if (race == "3"){ return "0.1px"; }
-                    else if (race == "2") { return "0.3px"; }
+                    else if (race == "2") { return "0.2px"; }
                     else { return "0.5px"; }
                 })
                 .attr("class", "shifter")

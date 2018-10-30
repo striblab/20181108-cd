@@ -364,12 +364,12 @@ h2 {
   .precincts {
       fill: #DCDCDC !important;
       stroke: white !important;
-      stroke-width: 0.03px !important;
+      stroke-width: 0.1px !important;
       stroke-linejoin: round !important;
       stroke-linecap: round !important;
  }
   .precinct {
-      stroke-width: 0.03px !important;
+      stroke-width: 0.05px !important;
  }
   .map svg .precinct {
       stroke-width: 0.1px !important;
