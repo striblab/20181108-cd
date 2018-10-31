@@ -443,9 +443,10 @@ class Map {
                     }
                 })
                 .attr("y2", function(d, i) {
-                    var divider = 3;
+                    var divider = 6;
                     if (race == "2") { divider = 2; }
                     else if (race == "3") { divider = 1; }
+                    else if (race == "8") { divider = 7; }
 
                     return (d[1] - divider);
 

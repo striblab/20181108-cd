@@ -371,9 +371,18 @@ h2 {
   .precinct {
       stroke-width: 0.05px !important;
  }
-  .map svg .precinct {
-      stroke-width: 0.1px !important;
- }
+    #map1 .precinct {
+        stroke-width: 0.8px !important;
+    }
+    #map2 .precinct {
+        stroke-width: 0.3px !important;
+    }
+    #map3 .precinct {
+        stroke-width: 0.13px !important;
+    }
+    #map8 .precinct {
+        stroke-width: 0.8px !important;
+    }
   .precinct:hover {
       opacity:0.5;
       cursor:pointer;
