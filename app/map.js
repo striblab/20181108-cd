@@ -287,7 +287,7 @@ class Map {
                 return 'P' + d.properties.VTDID;
             })
             .style('stroke-width', '0.3px')
-            .style('fill', '#dddddd')
+            .style('fill', '#888888')
             .on('mouseover', function(d) {
 
             })
