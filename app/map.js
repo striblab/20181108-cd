@@ -401,7 +401,66 @@ class Map {
 
             //         return (d[1] - divider);
             //     });
-    
+
+                        //City labels
+                        var marks = [{
+                            long: -92.100485,
+                            lat: 46.786672,
+                            name: "Duluth"
+                        },
+                        {
+                            long: -93.999400,
+                            lat: 44.163578,
+                            name: "Mankato"
+                        },
+                        {
+                            long: -92.480199,
+                            lat: 44.012122,
+                            name: "Rochester"
+                        },
+                        {
+                            long: -94.882686,
+                            lat: 47.471573,
+                            name: "Bemidji"
+                        },
+                        {
+                            long: -94.202008,
+                            lat: 46.352673,
+                            name: "Brainerd"
+                        },
+                        {
+                            long: -92.5338,
+                            lat: 44.5625,
+                            name: "Red Wing"
+                        }
+                    ];
+
+            //Draw city labels
+            self.svg.selectAll("circle")
+                .data(marks)
+                .enter()
+                .append("circle")
+                .attr('class', 'mark')
+                .attr('width', 3)
+                .attr('height', 3)
+                .attr("r", "1.3px")
+                .attr("fill", "#333")
+                .attr("transform", function(d) {
+                    return "translate(" + projection([d.long, d.lat]) + ")";
+                });
+
+            self.g.selectAll("text")
+                .data(marks)
+                .enter()
+                .append("text")
+                .attr('class', 'city-label')
+                .attr("transform", function(d) {
+                    return "translate(" + projection([d.long + 0.05, d.lat - 0.03]) + ")";
+                })
+                .text(function(d) {
+                    return " " + d.name;
+                });
+
             //draw shift lines
             self.g.selectAll(".centroid").data(centroids)
                 .enter().append("line")
@@ -486,8 +545,8 @@ class Map {
             //   $(self.target + ' .reset').hide();
             // }
 
-            $(".city-label").addClass("hidden");
-            $(".mark").addClass("hidden");
+            // $(".city-label").addClass("hidden");
+            // $(".mark").addClass("hidden");
 
             self.g.transition()
                 .duration(300)

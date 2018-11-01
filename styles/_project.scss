@@ -289,21 +289,36 @@ h2 {
       vertical-align:top;
       position:relative;
  }
+ #map1 .city-label {
+    font-size: 0.3em !important;
+    stroke-width:0.5px !important;
+}
+#map2 .city-label {
+    font-size: 0.1em !important;
+    stroke-width:0.1px !important;
+}
+#map3 .city-label {
+    font-size: 0.3em !important;
+    stroke-width:0.5px !important;
+}
+ #map8 .city-label {
+        font-size: 0.3em !important;
+        stroke-width:0.5px !important;
+ }
+
   .city-label {
-      font-size: 8px !important;
       margin-left: 3px !important;
       text-anchor: left !important;
       stroke:#333333 !important;
-      stroke-width:1px !important;
       font-weight:normal;
-      opacity:0;
+      opacity:1;
       pointer-events:none !important;
  }
   .mark {
       stroke:#333333 !important;
       stroke-width:0.7px !important;
       fill:#ffffff !important;
-      opacity:0;
+      opacity:1;
       pointer-events:none !important;
  }
   .tooltip {
@@ -1010,6 +1025,10 @@ h2 {
  }
   .tooltip {
       display:none !important;
+ }
+ .city-label {
+     opacity:0 !important;
+     display:none;
  }
   .slide, .map {
       width:100% !important;
