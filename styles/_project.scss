@@ -298,12 +298,32 @@ h2 {
     stroke-width:0.1px !important;
 }
 #map3 .city-label {
-    font-size: 0.3em !important;
-    stroke-width:0.5px !important;
+    font-size: 0.04em !important;
+    stroke-width:0.07px !important;
 }
  #map8 .city-label {
         font-size: 0.3em !important;
         stroke-width:0.5px !important;
+ }
+
+ .C, .M, .S {
+     opacity:0 !important;
+ }
+
+ #map2 .road {
+    stroke-width:0.2px !important;
+}
+
+#map3 .road {
+    stroke-width:0.07px !important;
+}
+
+ #map2 .Rochester, #map2 .Mankato, #map2 .Maple, #map2 .Plymouth, #map1 .Maple, #map1 .Plymouth, #map1 .Rosemount, #map1 .Red, #map3 .Rosemount {
+    opacity:0 !important;
+ }
+
+ .road {
+     pointer-events:none !important;
  }
 
   .city-label {
@@ -398,6 +418,30 @@ h2 {
     #map8 .precinct {
         stroke-width: 0.8px !important;
     }
+    .county {
+        fill-opacity:0 !important;
+        stroke: #ffffff !important;
+        stroke-width: 2px !important;
+        pointer-events:none !important;
+   }
+   #map1 .county {
+        fill-opacity:0 !important;
+        stroke: #ffffff !important;
+        stroke-width: 1.5px !important;
+        pointer-events:none !important;
+    }
+   #map2 .county {
+        fill-opacity:0 !important;
+        stroke: #ffffff !important;
+        stroke-width: 0.5px !important;
+        pointer-events:none !important;
+    }
+    #map3 .county {
+        fill-opacity:0 !important;
+        stroke: #ffffff !important;
+        stroke-width: 0.3px !important;
+        pointer-events:none !important;
+    }
   .precinct:hover {
       opacity:0.5;
       cursor:pointer;
@@ -408,12 +452,6 @@ h2 {
       pointer-events:none !important;
  }
   .shifter {
-      pointer-events:none !important;
- }
-  .county {
-      fill-opacity:0 !important;
-      stroke: white !important;
-      stroke-width: 0.3px !important;
       pointer-events:none !important;
  }
   .infocus {
@@ -438,23 +476,6 @@ h2 {
  }
   .fallback .hidden {
       opacity:1 !important;
- }
-  #dflGOVmn_metro .county {
-      opacity:1 !important;
- }
-  #dflGOVmetro_map .district, #gopGOVmetro_map .district {
-      opacity:0 !important;
-      display:none !important;
- }
-  #dflGOVmn_map .district, #gopGOVmn_map .district, #dflAGmn_map .district, #dflAGmetro_map .district {
-      stroke-width: 1px !important;
-      stroke-opacity:1 !important;
- }
-  #dflAGmetro_map .district {
-      opacity:0 !important;
- }
-  #dflCD8metro_map .district {
-      opacity:0 !important;
  }
  /* Base JeffChart styles */
   .chart {

@@ -4,7 +4,7 @@ import * as topojson from "topojson";
 import pct from '../sources/mnpct-shifts.json';
 import mn from '../sources/mncd.json';
 import mncounties from '../sources/counties.json'; 
-
+import roads from '../sources/roads.json'; 
 
 class Map {
 
@@ -98,7 +98,7 @@ class Map {
 
         if (filtered != "all") {
             $(self.target + " .district").addClass("faded");
-            $(self.target + " .county").addClass("hidden");
+            //$(self.target + " .county").addClass("hidden");
             $(self.target + " ." + filtered).removeClass("faded");
             $(self.target + " .CD1, " + self.target + " .CD2, " + self.target + " .CD3, " + self.target + ".CD4, " + self.target + " .CD5, " + self.target + " .CD6, " + self.target + " .CD7, " + self.target + " .CD8").addClass("infocus");
             $(self.target + " .district").removeClass("hidden");
@@ -175,7 +175,7 @@ class Map {
                     shifter = d.properties.shifts_shift + "+" + d3.format(".1%")(d.properties.shifts_shift_pct) + " ⇨";
                 }
 
-                return d.properties.PCTNAME + can1 + can2 + "<div>" + shifter + "</div>";
+                return d.properties.PCTNAME + "<div>" + shifter + "</div>" + can1 + can2;
 
                 //return d.properties.PCTNAME + "<div>No results</div>";
             }))
@@ -297,6 +297,20 @@ class Map {
         //     }
         // });
 
+            //Draw roads
+            self.g.append('g')
+            .attr('class', 'roads')
+            .selectAll('path')
+            .data(topojson.feature(roads, roads.objects.convert).features)
+            .enter().append('path')
+            .attr("class", function(d) {
+                return 'road ' + d.properties.RTTYP;
+            })
+            .attr('d', path)
+            .attr('fill', 'none')
+            .attr('stroke-width', '0.5px')
+            .attr('stroke','#bcbcbc');
+
         //Draw congressional district borders
         self.g.append('g')
             .attr('class', 'districts')
@@ -340,7 +354,8 @@ class Map {
             .attr("class", "county")
             .attr('d', path)
             .attr('fill', 'none')
-            .attr('stroke-width', '1px');
+            .attr('stroke-width', '2px')
+            .attr('stroke', '#ffffff');
 
             var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
                 if (filtered != "all") {
@@ -351,7 +366,8 @@ class Map {
             var centroids = features.map(function(feature) {
                 return path.centroid(feature);
             });
-    
+
+
             //draw circles
             // self.g.selectAll(".centroid").data(centroids)
             //   .enter().append("circle")
@@ -409,6 +425,21 @@ class Map {
                             name: "Duluth"
                         },
                         {
+                            long: -93.126110,
+                            lat: 44.739187,
+                            name: "Rosemount"
+                        },
+                        {
+                            long: -93.455788,
+                            lat: 45.072464,
+                            name: "Maple Grove"
+                        },
+                        {
+                            long: -93.473892,
+                            lat: 45.018269,
+                            name: "Plymouth"
+                        },
+                        {
                             long: -93.999400,
                             lat: 44.163578,
                             name: "Mankato"
@@ -434,32 +465,6 @@ class Map {
                             name: "Red Wing"
                         }
                     ];
-
-            //Draw city labels
-            self.svg.selectAll("circle")
-                .data(marks)
-                .enter()
-                .append("circle")
-                .attr('class', 'mark')
-                .attr('width', 3)
-                .attr('height', 3)
-                .attr("r", "1.3px")
-                .attr("fill", "#333")
-                .attr("transform", function(d) {
-                    return "translate(" + projection([d.long, d.lat]) + ")";
-                });
-
-            self.g.selectAll("text")
-                .data(marks)
-                .enter()
-                .append("text")
-                .attr('class', 'city-label')
-                .attr("transform", function(d) {
-                    return "translate(" + projection([d.long + 0.05, d.lat - 0.03]) + ")";
-                })
-                .text(function(d) {
-                    return " " + d.name;
-                });
 
             //draw shift lines
             self.g.selectAll(".centroid").data(centroids)
@@ -524,6 +529,34 @@ class Map {
                         return "url(#arrowR)";
                     }
                     });
+
+            //Draw city labels
+            self.svg.selectAll("circle")
+                .data(marks)
+                .enter()
+                .append("circle")
+                .attr('class', 'mark')
+                .attr('width', 3)
+                .attr('height', 3)
+                .attr("r", "1.3px")
+                .attr("fill", "#333")
+                .attr("transform", function(d) {
+                    return "translate(" + projection([d.long, d.lat]) + ")";
+                });
+
+            self.g.selectAll("text")
+                .data(marks)
+                .enter()
+                .append("text")
+                .attr('class', function(d) {
+                    return 'city-label ' + d.name;
+                })
+                .attr("transform", function(d) {
+                    return "translate(" + projection([d.long + 0.05, d.lat - 0.03]) + ")";
+                })
+                .text(function(d) {
+                    return " " + d.name;
+                });
 
         function clicked(d, k) {
             var x, y, stroke;
