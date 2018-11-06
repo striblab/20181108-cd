@@ -140,14 +140,14 @@ class Map {
                         $("#tip").html(tooltipText);
                         if (self._detect_mobile() == true) {
                             $("#tip").show();
-                            $(".key").hide();
+                            // $(".key").hide();
                         }
                     })
                     .on("mouseout", function(d, i) {
                         // Remove tooltip
                         tooltipDiv.remove();
                         $("#tip").hide();
-                        $(".key").show();
+                        // $(".key").show();
                         $("#tip").html("");
                     }); 
 
