@@ -474,7 +474,7 @@ class Map {
                         // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
                         // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
                         // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
-                        return "#7f98aa";
+                        return "#0258A0";
                     } else {
                         // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
                         // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
