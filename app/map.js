@@ -174,8 +174,12 @@ class Map {
                 } else {
                     shifter = d.properties.shifts_shift + "+" + d3.format(".1f")(d.properties.shifts_shift_pct) + " ⇨";
                 }
-
-                return d.properties.PCTNAME + "<div>" + shifter + "</div>" + can1 + can2;
+                if (d.properties.shifts_shift_pct != 0 || d.properties.shifts_shift_pct != null) {
+                    return d.properties.PCTNAME + "<div>" + shifter + "</div>" + can1 + can2;
+                } else {
+                    return d.properties.PCTNAME;
+                }
+                
 
                 //return d.properties.PCTNAME + "<div>No results</div>";
             }))
@@ -499,37 +503,28 @@ class Map {
                     return d[1];
                 })
                 .attr("x2", function(d, i) {
-                    var divider = 7;
+                    var divider = 4;
                     if (race == "2") { divider = 2; }
-                    else if (race == "3") { divider = 1; }
+                    else if (race == "3") { divider = -2; }
 
                     if (features[i].properties.shifts_shift == "D") {
-                        return d[0] - divider;
-                        // return d[0] - ((100 * features[i].properties.shifts_shift_pct) / divider);
+                        return d[0] - (divider + (features[i].properties.shifts_shift_pct / 3)) ;
                     } else {
-                        return d[0] + divider;
+                        return d[0] + ((divider + features[i].properties.shifts_shift_pct / 3));
                     }
                 })
                 .attr("y2", function(d, i) {
-                    var divider = 6;
+                    var divider = 3;
                     if (race == "2") { divider = 2; }
                     else if (race == "3") { divider = 1; }
-                    else if (race == "8") { divider = 7; }
+                    else if (race == "8") { divider = 2; }
 
                     return (d[1] - divider);
-
-                    // return (d[1] - 5)  + ((100 * features[i].properties.shifts_shift_pct) / divider);
                 })
                 .attr("marker-end", function(d, i) {
                     if (features[i].properties.shifts_shift == "D") {
-                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#D1E6E1"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#67B4C2"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#3580A3"; }
                         return "url(#arrowD)";
                     } else {
-                        // if (features[i].properties.shifts_shift_pct < 0.05) { return "#F2AC93"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.1) { return "#F2614C"; }
-                        // else if (features[i].properties.shifts_shift_pct < 0.2) { return "#C22A22"; }
                         return "url(#arrowR)";
                     }
                     });
