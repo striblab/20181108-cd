@@ -289,6 +289,18 @@ h2 {
       vertical-align:top;
       position:relative;
  }
+ .city-label {
+    text-anchor: left !important;
+    fill:#333333 !important;
+    fill-opacity:1;
+    stroke:#000000;
+    stroke-linecap:butt;
+    stroke-linejoin:miter;
+    stroke-opacity:1;
+    font-weight:normal;
+    opacity:1;
+    pointer-events:none !important;
+}
  #map1 .city-label {
     font-size: 0.3em !important;
     stroke-width:0.5px !important;
@@ -324,15 +336,6 @@ h2 {
 
  .road {
      pointer-events:none !important;
- }
-
-  .city-label {
-      margin-left: 3px !important;
-      text-anchor: left !important;
-      stroke:#333333 !important;
-      font-weight:normal;
-      opacity:1;
-      pointer-events:none !important;
  }
   .mark {
       stroke:#333333 !important;
