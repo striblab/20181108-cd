@@ -1,5 +1,166 @@
 /** * Project specific styling. */
 
+/********** CHASE STYLES **********/
+
+//other defaulty things
+.contest-table {
+  margin-bottom: 0.5em;
+
+  table {
+    margin-bottom: 0.5em;
+  }
+
+  thead tr th {
+    font-size: 0.6em;
+    text-transform: uppercase;
+    color: #080808;
+    font-weight: normal;
+    border-bottom: 3px solid #eeeeee;
+    padding-left: 0;
+    padding-bottom: 0.2em;
+  }
+
+  tbody td {
+    font-size: 0.9em;
+    border-bottom: 1px solid #eeeeee;
+    vertical-align: middle;
+  }
+
+  tr.test-data {
+    border-right: 3px solid #ff6933;
+  }
+
+  tr.winner {
+    background-color: #f5f5f5;
+  }
+
+  td.winner {
+    width: 5%;
+    text-align: center;
+    padding: 0.5em 0.2em;
+  }
+
+  .cand {
+    padding-left: 0;
+    width: 50%;
+
+    &.bold {
+      font-weight:bold;
+    }
+
+    @media (max-width: 576px) {
+      width: 55%;
+    }
+
+    > span.inc {
+      font-size: 0.8em;
+      font-weight: normal;
+    }
+
+    > span.party-label {
+      font-size: 0.7em;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  .votes,
+  .pct {
+    padding-right: 8px;
+    text-align: right;
+  }
+
+  .bar {
+    width: 25%;
+
+    @media (max-width: 420px) {
+      display: none;
+    }
+  }
+
+  .bar .pctBar {
+    display: block;
+    height: 5px;
+    border-radius: 2px;
+    min-width: 2px;
+  }
+
+  .reporting {
+    font-size: 0.65em;
+    color: #808080;
+    font-style: italic;
+  }
+
+  // PARTY STYLES
+
+  tr.party-dem,
+  tr.party-dfl {
+    td.winner span,
+    td.bar span.pctBar {
+      background-color: #0258a0;
+    }
+
+    td.winner span.check {
+      font-family:"Popular";
+      font-weight:bold;
+      color: #0258a0;
+      background-color: #f5f5f5;
+    }
+  }
+
+  tr.party-rep {
+    td.winner span,
+    td.bar span.pctBar {
+      background-color: #c0272d;
+    }
+
+    td.winner span.check {
+      font-family:"Popular";
+      font-weight:bold;
+      color: #c0272d;
+      background-color: #f5f5f5;
+    }
+  }
+
+  tr.party-lib,
+  tr.party-ind,
+  tr.party-idp,
+  tr.party-grt,
+  tr.party-gre,
+  tr.party-lmn {
+    td.winner span,
+    td.bar span.pctBar {
+      background-color: #f7c272;
+    }
+
+    td.winner span.check {
+      color: #f7c272;
+      background-color: #f5f5f5;
+    }
+  }
+
+  tr.party-una,
+  tr.party-wi,
+  tr.party-np {
+    td.winner span,
+    td.bar span.pctBar {
+      background-color: #999999;
+    }
+
+    td.winner span.check {
+      color: #303030;
+      background-color: #f5f5f5;
+    }
+  }
+
+  tr.party-wi span.first {
+    display: none;
+  }
+}
+
+
+/********** OTHER STYLES **********/
+
 // election article styles
 .elex-header {
   text-align: center;

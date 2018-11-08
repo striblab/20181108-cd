@@ -324,7 +324,7 @@ class Map {
             .attr('id', function(d) {
                 return 'P' + d.properties.DISTRICT;
             })
-            .style('stroke-width', '1px')
+            .style('stroke-width', '3px')
             .on('mousedown', function(d) {})
             .on('click', function(d) {
                 if (d.properties.DISTRICT == "5") {
