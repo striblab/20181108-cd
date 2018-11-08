@@ -503,9 +503,9 @@ class Map {
                     return d[1];
                 })
                 .attr("x2", function(d, i) {
-                    var divider = 4;
-                    if (race == "2") { divider = 2; }
-                    else if (race == "3") { divider = -2; }
+                    var divider = 3;
+                    if (race == "2") { divider = 1; }
+                    else if (race == "3") { divider = -1.5; }
 
                     if (features[i].properties.shifts_shift == "D") {
                         return d[0] - (divider + (features[i].properties.shifts_shift_pct / 3)) ;
