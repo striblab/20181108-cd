@@ -174,7 +174,7 @@ class Map {
                 } else {
                     shifter = d.properties.shifts_shift + "+" + d3.format(".1f")(d.properties.shifts_shift_pct) + " ⇨";
                 }
-                if (d.properties.shifts_shift_pct != 0 || d.properties.shifts_shift_pct != null) {
+                if (d.properties.shifts_shift_pct != 0 && d.properties.shifts_shift_pct != null && d.properties.shifts_shift_pct != "null") {
                     return d.properties.PCTNAME + "<div>" + shifter + "</div>" + can1 + can2;
                 } else {
                     return d.properties.PCTNAME;
@@ -187,6 +187,8 @@ class Map {
             .duration(600)
             .style('fill', function(d) {
                 
+                //shaded shift ramps
+
                 // if (race == "1" || race == "8") {
                 //     if (d.properties.shifts_shift == "R") {
                 //         if (d.properties.shifts_shift_pct >= 10) {
@@ -212,6 +214,30 @@ class Map {
                 //         return "#ededed";
                 //     }
                 // }
+
+                //flipped ramps
+
+                // if (race == "1" || race == "8") {
+                //     if (d.properties.shifts_shift == "R" && d.properties.shifts_flipped == "Y") {
+                //         return "#C22A22";
+                //     } else {
+                //         return "#ededed";
+                //     }
+                // } else if (race == "2" || race == "3") {
+                //     if (d.properties.shifts_shift == "D" && d.properties.shifts_flipped == "Y") {
+                //         return "#3580A3";
+                //     } else {
+                //         return "#ededed";
+                //     }
+                // }
+
+               //win ramp
+           
+            //    if (d.properties.shifts_win18 == "R") {
+            //             return "#C22A22";
+            //         } else if (d.properties.shifts_win18 == "D") {
+            //             return "#3580A3";
+            //     }
 
                 return "#ededed";
             });
@@ -331,7 +357,7 @@ class Map {
             .attr('id', function(d) {
                 return 'P' + d.properties.DISTRICT;
             })
-            .style('stroke-width', '3px')
+            .style('stroke-width', '1px')
             .on('mousedown', function(d) {})
             .on('click', function(d) {
                 if (d.properties.DISTRICT == "5") {
