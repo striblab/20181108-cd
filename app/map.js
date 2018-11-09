@@ -417,7 +417,7 @@ class Map {
                     } else if (race == "2") {
                         clicked(d, 2.8);
                     } else if (race == "3") {
-                        clicked(d, 6.5);
+                        clicked(d, 6.4);
                     } else if (race == "8") {
                         clicked(d, 0.80);
                     }
