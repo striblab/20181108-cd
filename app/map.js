@@ -156,6 +156,8 @@ class Map {
 
         this.g.selectAll(self.target + ' .precincts path')
             .call(tooltip(function(d, i) {
+                $(".shifter").removeClass("arrowselect");
+                $("#arrow" + d.properties.join).addClass("arrowselect");
 
                 var shifter;
                 var can1;
@@ -320,15 +322,7 @@ class Map {
                 return 'P' + d.properties.VTDID;
             })
             .style('stroke-width', '0.3px')
-            .style('fill', '#888888')
-            .on('mouseover', function(d) {
-
-            })
-        // .on('click', function(d) {
-        //     if (race != "5") {
-        //         clicked(d, 12);
-        //     }
-        // });
+            .style('fill', '#888888');
 
             //Draw roads
             self.g.append('g')
@@ -527,6 +521,9 @@ class Map {
                     else { return "0.5px"; }
                 })
                 .attr("class", "shifter")
+                .attr("id", function(d, i) {
+                    return "arrow" + features[i].properties.join;;
+                })
                 // .style("opacity",0)
                 .attr("x1", function(d) {
                     return d[0];

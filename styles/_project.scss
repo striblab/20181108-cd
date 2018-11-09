@@ -564,6 +564,7 @@ h2 {
   .votepct {
       float:right;
  }
+
   .precincts {
       fill: #aaaaaa !important;
       stroke: white !important;
@@ -609,6 +610,18 @@ h2 {
         stroke: #ffffff !important;
         stroke-width: 0.3px !important;
         pointer-events:none !important;
+    }
+    #map1 .arrowselect {
+        stroke-width:0.8px !important;
+    }
+    #map2 .arrowselect {
+        stroke-width:0.3px !important;
+    }
+    #map3 .arrowselect {
+        stroke-width:0.2px !important;
+    }
+    #map8 .arrowselect {
+        stroke-width:0.8px !important;
     }
   .precinct:hover {
       opacity:0.5;
