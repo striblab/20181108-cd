@@ -149,6 +149,8 @@ class Map {
                         $("#tip").hide();
                         // $(".key").show();
                         $("#tip").html("");
+                    }).on("mouseleave", function(){
+                        $(".shifter").removeClass("arrowselect");
                     }); 
 
             };
@@ -389,7 +391,7 @@ class Map {
                     } else if (race == "3") {
                         clicked(d, 6.5);
                     } else if (race == "8") {
-                        clicked(d, 0.84);
+                        clicked(d, 0.80);
                     }
                 }
             });
@@ -458,9 +460,9 @@ class Map {
                             name: "Edina"
                         },
                         {
-                            long: -93.126110,
-                            lat: 44.739187,
-                            name: "Rosemount"
+                            long: -93.275772,
+                            lat: 44.762058,
+                            name: "Burnsville"
                         },
                         {
                             long: -93.455788,
@@ -559,20 +561,36 @@ class Map {
                     });
 
             //Draw city labels
-            self.svg.selectAll("circle")
-                .data(marks)
-                .enter()
-                .append("circle")
-                .attr('class', 'mark')
-                .attr('width', 3)
-                .attr('height', 3)
-                .attr("r", "1.3px")
-                .attr("fill", "#333")
-                .attr("transform", function(d) {
-                    return "translate(" + projection([d.long, d.lat]) + ")";
-                });
+            // self.svg.selectAll("circle")
+            //     .data(marks)
+            //     .enter()
+            //     .append("circle")
+            //     .attr('class', 'mark')
+            //     .attr('width', 3)
+            //     .attr('height', 3)
+            //     .attr("r", "1.3px")
+            //     .attr("fill", "#333")
+            //     .attr("transform", function(d) {
+            //         return "translate(" + projection([d.long, d.lat]) + ")";
+            //     });
 
-            self.g.selectAll("text")
+            self.g.append('g').attr('class', 'labelbg').selectAll("text")
+            .data(marks)
+            .enter()
+            .append("text")
+            .attr('class', function(d) {
+                return 'label-bg ' + d.name;
+            })
+            .attr("transform", function(d) {
+                if (race == "1" || race == "8") { return "translate(" + projection([d.long, d.lat - 0.08]) + ")"; }
+                else if (race == "2" || race == "3") { return "translate(" + projection([d.long, d.lat]) + ")"; }
+            })
+            // .style("opacity",0)
+            .text(function(d) {
+                return " " + d.name;
+            });
+
+            self.g.append('g').attr('class', 'labels').selectAll("text")
                 .data(marks)
                 .enter()
                 .append("text")
@@ -580,27 +598,15 @@ class Map {
                     return 'city-label ' + d.name;
                 })
                 .attr("transform", function(d) {
-                    return "translate(" + projection([d.long, d.lat]) + ")";
+                    if (race == "1" || race == "8") { return "translate(" + projection([d.long, d.lat - 0.08]) + ")"; }
+                    else if (race == "2" || race == "3") { return "translate(" + projection([d.long, d.lat]) + ")"; }
                 })
                 // .style("opacity",0)
                 .text(function(d) {
                     return " " + d.name;
                 });
 
-            self.g.selectAll("text")
-                .data(marks)
-                .enter()
-                .append("text")
-                .attr('class', function(d) {
-                    return 'label-bg ' + d.name;
-                })
-                .attr("transform", function(d) {
-                    return "translate(" + projection([d.long, d.lat]) + ")";
-                })
-                // .style("opacity",0)
-                .text(function(d) {
-                    return " " + d.name;
-                });
+
 
         function clicked(d, k) {
             var x, y, stroke;

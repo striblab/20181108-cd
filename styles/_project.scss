@@ -453,17 +453,13 @@ h2 {
     text-anchor: middle;
     fill: none !important;
     stroke: #000000;
-    font-size: 0.9rem;
     text-shadow: 0 0 3px #fff;
-    fill: rgb(70, 70, 70);
 }
 .label-bg {
     pointer-events: none;
     text-anchor: middle;
-    fill: #ffffff;
+    fill: none;
     stroke: #ffffff;
-    font-size: 0.9rem;
-    stroke-width: 0.5rem;
     opacity: 1;
   }
  #map1 .city-label {
@@ -478,9 +474,25 @@ h2 {
     font-size: 0.07em !important;
     stroke-width:0.07px !important;
 }
- #map8 .city-label {
+#map8 .city-label {
         font-size: 0.5em !important;
         stroke-width:0.5px !important;
+}
+#map1 .label-bg {
+    font-size: 0.5em !important;
+    stroke-width:2px !important;
+}
+#map2 .label-bg {
+    font-size: 0.15em !important;
+    stroke-width:0.5px !important;
+}
+#map3 .label-bg {
+    font-size: 0.07em !important;
+    stroke-width:0.3px !important;
+}
+ #map8 .label-bg {
+        font-size: 0.5em !important;
+        stroke-width:2px !important;
 }
 
  .C, .M, .S {
@@ -495,7 +507,7 @@ h2 {
     stroke-width:0.07px !important;
 }
 
- #map2 .Rochester, #map2 .Mankato, #map2 .Maple, #map2 .Plymouth, #map1 .Maple, #map1 .Plymouth, #map1 .Rosemount, #map1 .Red, #map3 .Rosemount, #map1 .Edina, , #map2 .Edina, #map8 .Edina {
+ #map2 .Rochester, #map2 .Mankato, #map2 .Maple,  #map8 .Maple, #map2 .Plymouth, #map1 .Maple, #map1 .Plymouth, #map1 .Burnsville, #map1 .Red, #map3 .Burnsville, #map1 .Edina, , #map2 .Edina, #map8 .Edina {
     opacity:0 !important;
  }
 
