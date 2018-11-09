@@ -448,33 +448,52 @@ h2 {
       position:relative;
  }
  .city-label {
-    text-anchor: left !important;
-    fill:#333333 !important;
-    fill-opacity:1;
-    stroke:#000000;
-    stroke-linecap:butt;
-    stroke-linejoin:miter;
-    stroke-opacity:1;
-    font-weight:normal;
-    opacity:1;
-    pointer-events:none !important;
+    z-index: 10;
+    pointer-events: none;
+    text-anchor: middle;
+    fill: none !important;
+    stroke: #000000;
+    text-shadow: 0 0 3px #fff;
 }
+.label-bg {
+    pointer-events: none;
+    text-anchor: middle;
+    fill: none;
+    stroke: #ffffff;
+    opacity: 1;
+  }
  #map1 .city-label {
-    font-size: 0.3em !important;
+    font-size: 0.5em !important;
     stroke-width:0.5px !important;
 }
 #map2 .city-label {
-    font-size: 0.1em !important;
-    stroke-width:0.1px !important;
+    font-size: 0.15em !important;
+    stroke-width:0.15px !important;
 }
 #map3 .city-label {
-    font-size: 0.04em !important;
+    font-size: 0.07em !important;
     stroke-width:0.07px !important;
 }
- #map8 .city-label {
-        font-size: 0.3em !important;
+#map8 .city-label {
+        font-size: 0.5em !important;
         stroke-width:0.5px !important;
- }
+}
+#map1 .label-bg {
+    font-size: 0.5em !important;
+    stroke-width:2px !important;
+}
+#map2 .label-bg {
+    font-size: 0.15em !important;
+    stroke-width:0.5px !important;
+}
+#map3 .label-bg {
+    font-size: 0.07em !important;
+    stroke-width:0.3px !important;
+}
+ #map8 .label-bg {
+        font-size: 0.5em !important;
+        stroke-width:2px !important;
+}
 
  .C, .M, .S {
      opacity:0 !important;
@@ -488,7 +507,7 @@ h2 {
     stroke-width:0.07px !important;
 }
 
- #map2 .Rochester, #map2 .Mankato, #map2 .Maple, #map2 .Plymouth, #map1 .Maple, #map1 .Plymouth, #map1 .Rosemount, #map1 .Red, #map3 .Rosemount {
+ #map2 .Rochester, #map2 .Mankato, #map2 .Maple,  #map8 .Maple, #map2 .Plymouth, #map1 .Maple, #map1 .Plymouth, #map1 .Burnsville, #map1 .Red, #map3 .Burnsville, #map1 .Edina, , #map2 .Edina, #map8 .Edina {
     opacity:0 !important;
  }
 
@@ -548,6 +567,7 @@ h2 {
   .votepct {
       float:right;
  }
+
   .precincts {
       fill: #aaaaaa !important;
       stroke: white !important;
@@ -594,6 +614,18 @@ h2 {
         stroke-width: 0.3px !important;
         pointer-events:none !important;
     }
+    #map1 .arrowselect {
+        stroke-width:0.8px !important;
+    }
+    #map2 .arrowselect {
+        stroke-width:0.3px !important;
+    }
+    #map3 .arrowselect {
+        stroke-width:0.2px !important;
+    }
+    #map8 .arrowselect {
+        stroke-width:0.8px !important;
+    }
   .precinct:hover {
       opacity:0.5;
       cursor:pointer;
@@ -619,6 +651,14 @@ h2 {
       stroke-opacity: 0.3 !important;
       stroke-linejoin: round !important;
       stroke-linecap: round !important;
+ }
+ #map8 #P8,  #map1 #P1 {
+    stroke: #333333 !important;
+    stroke-opacity: 1 !important;
+ }
+ #map2 #P2,  #map3 #P3 {
+    stroke: #333333 !important;
+    stroke-opacity: 1 !important;
  }
   .fallback .district {
       stroke-opacity: 1 !important;

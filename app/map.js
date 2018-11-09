@@ -151,7 +151,9 @@ class Map {
                         tooltipDiv.remove();
                         $("#tip").hide();
                         // $(".key").show();
-                        // $("#tip").html("");
+                        $("#tip").html("");
+                    }).on("mouseleave", function(){
+                        $(".shifter").removeClass("arrowselect");
                     }); 
 
             };
@@ -159,6 +161,8 @@ class Map {
 
         this.g.selectAll(self.target + ' .precincts path')
             .call(tooltip(function(d, i) {
+                $(".shifter").removeClass("arrowselect");
+                $("#arrow" + d.properties.join).addClass("arrowselect");
 
                 var shifter;
                 var can1;
@@ -348,15 +352,7 @@ class Map {
                 return 'P' + d.properties.VTDID;
             })
             .style('stroke-width', '0.3px')
-            .style('fill', '#888888')
-            .on('mouseover', function(d) {
-
-            })
-        // .on('click', function(d) {
-        //     if (race != "5") {
-        //         clicked(d, 12);
-        //     }
-        // });
+            .style('fill', '#888888');
 
             //Draw roads
             self.g.append('g')
@@ -372,6 +368,28 @@ class Map {
             .attr('stroke-width', '0.5px')
             .attr('stroke','#bcbcbc');
 
+        //Draw county borders
+        self.g.append('g')
+        .attr('class', 'counties')
+        .selectAll('path')
+        .data(topojson.feature(mncounties, mncounties.objects.counties).features)
+        .enter().append('path')
+        .attr("class", "county")
+        .attr('d', path)
+        .attr('fill', 'none')
+        .attr('stroke-width', '2px')
+        .attr('stroke', '#ffffff');
+
+        var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
+            if (filtered != "all") {
+                return d.properties.CONGDIST == race && d.properties.shifts_shift != "#N/A"  && d.properties.shifts_shift != null && d.properties.shifts_shift_pct != 0;
+            }
+        });
+
+        var centroids = features.map(function(feature) {
+            return path.centroid(feature);
+        });
+
         //Draw congressional district borders
         self.g.append('g')
             .attr('class', 'districts')
@@ -385,7 +403,8 @@ class Map {
             .attr('id', function(d) {
                 return 'P' + d.properties.DISTRICT;
             })
-            .style('stroke-width', '1px')
+            .style('stroke-width', '0.5px')
+            .style('stroke',"#ababab")
             .on('mousedown', function(d) {})
             .on('click', function(d) {
                 if (d.properties.DISTRICT == "5") {
@@ -400,33 +419,11 @@ class Map {
                     } else if (race == "3") {
                         clicked(d, 6.5);
                     } else if (race == "8") {
-                        clicked(d, 0.84);
+                        clicked(d, 0.80);
                     }
                 }
             });
 
-
-        //Draw county borders
-        self.g.append('g')
-            .attr('class', 'counties')
-            .selectAll('path')
-            .data(topojson.feature(mncounties, mncounties.objects.counties).features)
-            .enter().append('path')
-            .attr("class", "county")
-            .attr('d', path)
-            .attr('fill', 'none')
-            .attr('stroke-width', '2px')
-            .attr('stroke', '#ffffff');
-
-            var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
-                if (filtered != "all") {
-                    return d.properties.CONGDIST == race && d.properties.shifts_shift != "#N/A"  && d.properties.shifts_shift != null && d.properties.shifts_shift_pct != 0;
-                }
-            });
-    
-            var centroids = features.map(function(feature) {
-                return path.centroid(feature);
-            });
 
 
             //draw circles
@@ -486,9 +483,14 @@ class Map {
                             name: "Duluth"
                         },
                         {
-                            long: -93.126110,
-                            lat: 44.739187,
-                            name: "Rosemount"
+                            long: -93.349953,
+                            lat: 44.889687,
+                            name: "Edina"
+                        },
+                        {
+                            long: -93.275772,
+                            lat: 44.762058,
+                            name: "Burnsville"
                         },
                         {
                             long: -93.455788,
@@ -549,6 +551,9 @@ class Map {
                     else { return "0.5px"; }
                 })
                 .attr("class", "shifter")
+                .attr("id", function(d, i) {
+                    return "arrow" + features[i].properties.join;;
+                })
                 // .style("opacity",0)
                 .attr("x1", function(d) {
                     return d[0];
@@ -584,20 +589,36 @@ class Map {
                     });
 
             //Draw city labels
-            self.svg.selectAll("circle")
-                .data(marks)
-                .enter()
-                .append("circle")
-                .attr('class', 'mark')
-                .attr('width', 3)
-                .attr('height', 3)
-                .attr("r", "1.3px")
-                .attr("fill", "#333")
-                .attr("transform", function(d) {
-                    return "translate(" + projection([d.long, d.lat]) + ")";
-                });
+            // self.svg.selectAll("circle")
+            //     .data(marks)
+            //     .enter()
+            //     .append("circle")
+            //     .attr('class', 'mark')
+            //     .attr('width', 3)
+            //     .attr('height', 3)
+            //     .attr("r", "1.3px")
+            //     .attr("fill", "#333")
+            //     .attr("transform", function(d) {
+            //         return "translate(" + projection([d.long, d.lat]) + ")";
+            //     });
 
-            self.g.selectAll("text")
+            self.g.append('g').attr('class', 'labelbg').selectAll("text")
+            .data(marks)
+            .enter()
+            .append("text")
+            .attr('class', function(d) {
+                return 'label-bg ' + d.name;
+            })
+            .attr("transform", function(d) {
+                if (race == "1" || race == "8") { return "translate(" + projection([d.long, d.lat - 0.08]) + ")"; }
+                else if (race == "2" || race == "3") { return "translate(" + projection([d.long, d.lat]) + ")"; }
+            })
+            // .style("opacity",0)
+            .text(function(d) {
+                return " " + d.name;
+            });
+
+            self.g.append('g').attr('class', 'labels').selectAll("text")
                 .data(marks)
                 .enter()
                 .append("text")
@@ -605,12 +626,15 @@ class Map {
                     return 'city-label ' + d.name;
                 })
                 .attr("transform", function(d) {
-                    return "translate(" + projection([d.long, d.lat]) + ")";
+                    if (race == "1" || race == "8") { return "translate(" + projection([d.long, d.lat - 0.08]) + ")"; }
+                    else if (race == "2" || race == "3") { return "translate(" + projection([d.long, d.lat]) + ")"; }
                 })
                 // .style("opacity",0)
                 .text(function(d) {
                     return " " + d.name;
                 });
+
+
 
         function clicked(d, k) {
             var x, y, stroke;
