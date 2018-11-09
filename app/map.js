@@ -114,41 +114,44 @@ class Map {
             return function(selection) {
                 var tooltipDiv;
                 var bodyNode = d3.select('body').node();
-                selection.on("mouseover", function(d, i) {
+                    selection.on("mouseover", function(d, i) {
                         // Clean up lost tooltips
                         d3.select('body').selectAll('div.tooltip').remove();
                         // Append tooltip
                         tooltipDiv = d3.select('body').append('div').attr('class', 'tooltip');
-                        var absoluteMousePos = d3.mouse(bodyNode);
-                        tooltipDiv.style('left', (absoluteMousePos[0] + 10) + 'px')
-                            .style('top', (absoluteMousePos[1] - 15) + 'px')
+                        // var absoluteMousePos = d3.mouse(bodyNode);
+                        // console.log(d3.event.pageX);
+                        // console.log(absoluteMousePos);
+                        tooltipDiv.style('left', (d3.event.pageX + 10) + 'px')
+                            .style('top', (d3.event.pageY - 15) + 'px')
                             .style('position', 'absolute')
                             .style('z-index', 1001);
                         // Add text using the accessor function
                         var tooltipText = accessor(d, i) || '';
+
+                        tooltipDiv.html(tooltipText);
+                        $("#tip").html(tooltipText);
+
+                        if (self._detect_mobile() == true) {
+                            $("#tip").show();
+                            // $(".key").hide();
+                        }
                         // Crop text arbitrarily
                         //tooltipDiv.style('width', function(d, i){return (tooltipText.length > 80) ? '300px' : null;})
                         //    .html(tooltipText);
                     })
                     .on('mousemove', function(d, i) {
                         // Move tooltip
-                        var absoluteMousePos = d3.mouse(bodyNode);
-                        tooltipDiv.style('left', (absoluteMousePos[0] + 10) + 'px')
-                            .style('top', (absoluteMousePos[1] - 15) + 'px');
-                        var tooltipText = accessor(d, i) || '';
-                        tooltipDiv.html(tooltipText);
-                        $("#tip").html(tooltipText);
-                        if (self._detect_mobile() == true) {
-                            $("#tip").show();
-                            // $(".key").hide();
-                        }
+                        tooltipDiv.style('left', (d3.event.pageX + 10) + 'px')
+                            .style('top', (d3.event.pageY - 15) + 'px');
+
                     })
                     .on("mouseout", function(d, i) {
                         // Remove tooltip
                         tooltipDiv.remove();
                         $("#tip").hide();
                         // $(".key").show();
-                        $("#tip").html("");
+                        // $("#tip").html("");
                     }); 
 
             };
@@ -160,13 +163,19 @@ class Map {
                 var shifter;
                 var can1;
                 var can2;
+                var party1;
+                var party2;
 
                 if (d.properties.shifts_r_pct18 > d.properties.shifts_d_pct18) {
-                    can1 = "<div class='legendary r4'>GOP: " + d3.format(".1f")(d.properties.shifts_r_pct18) + "</div>";
-                    can2 = "<div class='legendary d4'>DFL: " + d3.format(".1f")(d.properties.shifts_d_pct18) + "</div>";
+                    can1 = d3.format(".1f")(d.properties.shifts_r_pct18);
+                    can2 = d3.format(".1f")(d.properties.shifts_d_pct18);
+                    party1 = 'GOP';
+                    party2 = 'DFL';
                 } else {
-                    can2 = "<div class='legendary r4'>GOP: " + d3.format(".1f")(d.properties.shifts_r_pct18) + "</div>";
-                    can1 = "<div class='legendary d4'>DFL: " + d3.format(".1f")(d.properties.shifts_d_pct18) + "</div>";
+                    can2 = d3.format(".1f")(d.properties.shifts_r_pct18);
+                    can1 = d3.format(".1f")(d.properties.shifts_d_pct18);
+                    party1 = 'DFL';
+                    party2 = 'GOP'
                 }
 
                 if (d.properties.shifts_shift == "D") {
@@ -174,14 +183,33 @@ class Map {
                 } else {
                     shifter = d.properties.shifts_shift + "+" + d3.format(".1f")(d.properties.shifts_shift_pct) + " ⇨";
                 }
+
                 if (d.properties.shifts_shift_pct != 0 && d.properties.shifts_shift_pct != null && d.properties.shifts_shift_pct != "null") {
-                    return d.properties.PCTNAME + "<div>" + shifter + "</div>" + can1 + can2;
+                    return '<h4 id="title">' + d.properties.PCTNAME + '</h4> \
+                      <div id="shifter" class="' + (d.properties.shifts_shift == 'D' ? 'd' : 'r') + '">' + shifter + '</div> \
+                      <table> \
+                        <thead> \
+                          <tr> \
+                            <th>Winner 2018</th> \
+                            <th class="right">Pct.</th> \
+                          </tr> \
+                        </thead> \
+                        <tbody> \
+                          <tr> \
+                            <td><span class="' + (party1 == 'GOP' ? 'label-r' : 'label-d') + '"></span>' + party1 + '</td> \
+                            <td id="votes-d" class="right">' + can1 + '</td> \
+                          </tr> \
+                          <tr> \
+                            <td><span class="' + (party2 == 'GOP' ? 'label-r' : 'label-d') + '"></span>' + party2 + '</td> \
+                            <td id="votes-r" class="right">' + can2 + '</td> \
+                          </tr>\
+                        </tbody> \
+                      </table>';
                 } else {
-                    return d.properties.PCTNAME;
+                    return '<h4 id="title">' + d.properties.PCTNAME + '</h4>';
                 }
                 
-
-                //return d.properties.PCTNAME + "<div>No results</div>";
+                return '<h4 id="title">No data</h4>';
             }))
             .transition()
             .duration(600)
