@@ -513,11 +513,6 @@ class Map {
                             name: "Rochester"
                         },
                         {
-                            long: -94.882686,
-                            lat: 47.471573,
-                            name: "Bemidji"
-                        },
-                        {
                             long: -94.202008,
                             lat: 46.352673,
                             name: "Brainerd"
