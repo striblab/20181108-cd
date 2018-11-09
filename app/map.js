@@ -344,6 +344,28 @@ class Map {
             .attr('stroke-width', '0.5px')
             .attr('stroke','#bcbcbc');
 
+        //Draw county borders
+        self.g.append('g')
+        .attr('class', 'counties')
+        .selectAll('path')
+        .data(topojson.feature(mncounties, mncounties.objects.counties).features)
+        .enter().append('path')
+        .attr("class", "county")
+        .attr('d', path)
+        .attr('fill', 'none')
+        .attr('stroke-width', '2px')
+        .attr('stroke', '#ffffff');
+
+        var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
+            if (filtered != "all") {
+                return d.properties.CONGDIST == race && d.properties.shifts_shift != "#N/A"  && d.properties.shifts_shift != null && d.properties.shifts_shift_pct != 0;
+            }
+        });
+
+        var centroids = features.map(function(feature) {
+            return path.centroid(feature);
+        });
+
         //Draw congressional district borders
         self.g.append('g')
             .attr('class', 'districts')
@@ -357,7 +379,8 @@ class Map {
             .attr('id', function(d) {
                 return 'P' + d.properties.DISTRICT;
             })
-            .style('stroke-width', '1px')
+            .style('stroke-width', '0.5px')
+            .style('stroke',"#ababab")
             .on('mousedown', function(d) {})
             .on('click', function(d) {
                 if (d.properties.DISTRICT == "5") {
@@ -377,28 +400,6 @@ class Map {
                 }
             });
 
-
-        //Draw county borders
-        self.g.append('g')
-            .attr('class', 'counties')
-            .selectAll('path')
-            .data(topojson.feature(mncounties, mncounties.objects.counties).features)
-            .enter().append('path')
-            .attr("class", "county")
-            .attr('d', path)
-            .attr('fill', 'none')
-            .attr('stroke-width', '2px')
-            .attr('stroke', '#ffffff');
-
-            var features = (topojson.feature(pct, pct.objects.convert).features).filter(function(d) {
-                if (filtered != "all") {
-                    return d.properties.CONGDIST == race && d.properties.shifts_shift != "#N/A"  && d.properties.shifts_shift != null && d.properties.shifts_shift_pct != 0;
-                }
-            });
-    
-            var centroids = features.map(function(feature) {
-                return path.centroid(feature);
-            });
 
 
             //draw circles
@@ -456,6 +457,11 @@ class Map {
                             long: -92.100485,
                             lat: 46.786672,
                             name: "Duluth"
+                        },
+                        {
+                            long: -93.349953,
+                            lat: 44.889687,
+                            name: "Edina"
                         },
                         {
                             long: -93.126110,
@@ -575,6 +581,21 @@ class Map {
                 .append("text")
                 .attr('class', function(d) {
                     return 'city-label ' + d.name;
+                })
+                .attr("transform", function(d) {
+                    return "translate(" + projection([d.long, d.lat]) + ")";
+                })
+                // .style("opacity",0)
+                .text(function(d) {
+                    return " " + d.name;
+                });
+
+            self.g.selectAll("text")
+                .data(marks)
+                .enter()
+                .append("text")
+                .attr('class', function(d) {
+                    return 'label-bg ' + d.name;
                 })
                 .attr("transform", function(d) {
                     return "translate(" + projection([d.long, d.lat]) + ")";
